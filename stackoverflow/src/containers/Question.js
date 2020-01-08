@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
 import styled from 'styled-components';
-
+import Card from '../components/Card';
+import {Link} from 'react-router-dom';
+const ROOT_API = 'https://api.stackexchange.com/2.2/';
 
 const QuestionWrapper = styled.div `
 display:flex;
@@ -27,6 +29,43 @@ class Question extends Component {
    }
 
 
+   async componentDidMount(){
+
+      const {match} = this.props;
+
+
+      try{
+        const data = await fetch(
+          `${ROOT_API}questions/${match.params.id}?site=stackoverflow`
+        )
+
+
+        const dataJSON = await data.json();
+
+
+        if(dataJSON){
+
+          this.setState({
+            data:dataJSON,
+            loading:false
+          })
+        }
+      }
+
+
+      catch(error){
+
+        console.log(error)
+
+        this.setState({
+          loading:true,
+          error:error.message
+        })
+      }
+
+   }
+
+
    render(){
 
      const { data,loading,error} = this.state;
@@ -38,12 +77,23 @@ class Question extends Component {
     }
 
 
+    console.log(this.state.data,'question data')
+    return(
+        <QuestionWrapper>
+        <Card key={data.items[0].question_id} data={data.items[0]} />
+        </QuestionWrapper>
+     
+      )
+   
+
+
 
    }
 
 
-
-
+  
+      
+    
 }
 
 
