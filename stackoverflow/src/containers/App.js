@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import styled,{createGlobalStyle} from 'styled-components';
 import Header from '../components/Header';
+import {BrowserRouter as Router,Route} from 'react-router-dom';
 import Feed from './Feed';
 
 
@@ -31,7 +32,9 @@ class App extends Component {
      <GlobalStyle/>
      <AppWrapper>
        <Header/>
-       <Feed />
+      <Router>
+        <Route exact path="/" component={Feed} />
+      </Router>
      </AppWrapper>
 
      </>
