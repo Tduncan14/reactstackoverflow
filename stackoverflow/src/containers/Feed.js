@@ -3,7 +3,26 @@ import styled from 'styled-components';
 import Card from '../components/Card';
 import {Link} from 'react-router-dom';
 import queryString from 'query-string';
-import PaginationBar from '../components/PaginationBar'; 
+ 
+
+
+
+const PaginationBar = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+ `;
+
+ const PaginationLink = styled(Link)`
+  padding: 1%;
+  background: lightBlue;
+  color: white;
+  text-decoration: none
+  border-radius: 5px;
+ `;
+
+
+
 
 const FeedWrapper = styled.div `
 display:flex;
@@ -86,7 +105,9 @@ class Feed extends Component {
 
 
 
-        const {data,loading,error} = this.state;
+        const {data,loading,error,page} = this.state;
+
+        const {match} = this.props;
 
 
          console.log('data state',data)
@@ -110,7 +131,10 @@ class Feed extends Component {
                      </CardLink>
                  ))
                 }
-                  <PaginationBar />
+                <PaginationBar>
+    {page > 1 && <PaginationLink to={`${match.url}?page=${page - 1}`}>Previous</PaginationLink>}
+    {data.has_more && <PaginationLink to={`${match.url}?page=${page + 1}`}>Next</PaginationLink>}
+    </PaginationBar>
             </FeedWrapper>
           
             </>
