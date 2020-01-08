@@ -53,7 +53,7 @@ class Feed extends Component {
 
      constructor(props){
          super(props);
-         const query = queryString.parse(props.location.search);
+         const query = queryString.parse(this.props.location.search);
          
          this.state = {
             data:[],
@@ -103,6 +103,8 @@ class Feed extends Component {
 
     render(){
 
+
+        console.log(queryString.parse(this.props.location.search),'location')
 
 
         const {data,loading,error,page} = this.state;
