@@ -43,7 +43,7 @@ class Feed extends Component {
            )
 
 
-           const dataJSON = data.json()
+           const dataJSON = await data.json()
 
 
            if(dataJSON){
@@ -71,9 +71,12 @@ class Feed extends Component {
 
     render(){
 
+
+
         const {data,loading,error} = this.state;
 
 
+         console.log('data state',data)
 
         if(loading || error){
 
@@ -84,7 +87,7 @@ class Feed extends Component {
         return(
             <FeedWrapper>
                 {
-                 data.items.maps(item => (
+                 data.items.map(item => (
                      <Card key = {item.question_id} data={item}/>
                  ))
                 }
@@ -96,3 +99,6 @@ class Feed extends Component {
 
 
 }
+
+
+export default Feed;
