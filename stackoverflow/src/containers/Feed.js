@@ -100,6 +100,43 @@ class Feed extends Component {
 
      }
 
+     async fetchApi(page){
+
+     try{
+         const data = await fetch(`${ROOT_API}questions?order=desc&sort=activity&tagged=reactjs&site=stackoverflow${(page) ? `&page=${page}` : ''}`);
+
+         const dataJSON = await data.json();
+
+
+         if(dataJSON){
+
+
+            this.setState({
+                data:dataJSON,
+                loading:false
+            });
+         }
+
+         
+     }
+
+     catch(error){
+         
+
+        this.setState({
+            loading:false,
+            error:error.message
+        })
+
+     }
+
+
+
+
+
+
+     }
+
 
     render(){
 
