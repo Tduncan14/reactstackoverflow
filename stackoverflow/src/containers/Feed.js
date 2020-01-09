@@ -65,38 +65,27 @@ class Feed extends Component {
 
 
 
-     async componentDidMount(){
+     componentDidMount(){
 
         const { page} = this.state;
 
-       try {
-           const data = await fetch(
-            `${ROOT_API}questions?order=desc&sort=activity&tagged=reactjs&site=stackoverflow${(page) ? `&page=${page}` : ''}`
-           )
+       this.fetchApi(page);
 
 
-           const dataJSON = await data.json()
+     }
 
 
-           if(dataJSON){
+     componentDidUpdate(prevProps){
 
-              this.setState({
-                  data:dataJSON,
-                  loading:false
-              })
-           }
-       }
+        if(prevProps.location.search !== this.props.location.search){
+
+            const query = queryString.parse(this.props.location.search)
 
 
-       catch(error){
-           this.setState({
-               loading:false,
-               error:error.message
-           })
-       }
+            this.setState({page:parseInt(query.page)},()=>this.fetchApi(this.state.page))
 
 
-
+        }
 
      }
 
@@ -121,7 +110,7 @@ class Feed extends Component {
      }
 
      catch(error){
-         
+
 
         this.setState({
             loading:false,
@@ -172,7 +161,7 @@ class Feed extends Component {
                 }
                 <PaginationBar>
     {page > 1 && <PaginationLink to={`${match.url}?page=${page - 1}`}>Previous</PaginationLink>}
-    {data.has_more && <PaginationLink to={`${match.url}?page=${page + 1}`}>Next</PaginationLink>}
+    {data.has_more && <PaginationLink  to={`${match.url}?page=${page + 1}`}>Next</PaginationLink>}
     </PaginationBar>
             </FeedWrapper>
           

@@ -9,7 +9,7 @@ import * as serviceWorker from './serviceWorker';
 
 // const thestore = createStore(rootReducer)
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.hydrate(<App />, document.getElementById('root'));
 
 
 // ReactDOM.render(
