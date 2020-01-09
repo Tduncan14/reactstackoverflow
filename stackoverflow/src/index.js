@@ -5,11 +5,12 @@ import App from './containers/App';
 // import {Provider} from 'react-redux';
 // import {createStore} from 'redux';
 import * as serviceWorker from './serviceWorker';
+import {BrowserRouter as Router} from 'react-router-dom';
 // import rootReducer from './reducers/rootReducers'
 
 // const thestore = createStore(rootReducer)
 
-ReactDOM.hydrate(<App />, document.getElementById('root'));
+ReactDOM.hydrate(<Router><App /> </Router>, document.getElementById('root'));
 
 
 // ReactDOM.render(

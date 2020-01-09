@@ -3,6 +3,7 @@ import fs from 'fs';
 import express from 'express';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import{StaticRouter} from 'react-router-dom';
 
 
 import App from '../src/containers/App';
@@ -14,7 +15,9 @@ const app = express();
 
 app.get('/*', (req, res) => {
     const context = {};
-    const app = ReactDOMServer.renderToString(<App />);
+    const app = ReactDOMServer.renderToString( <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>,);
   
     const indexFile = path.resolve('./build/index.html');
     fs.readFile(indexFile, 'utf8', (err, data) => {
